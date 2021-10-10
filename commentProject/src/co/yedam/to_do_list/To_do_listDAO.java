@@ -6,7 +6,7 @@ public class To_do_listDAO extends DAO {
 	
 	private static To_do_listDAO singleton = new To_do_listDAO() ;
 	
-	private To_do_listDAO () {
+	To_do_listDAO () {
 		
 	}
 	
@@ -15,7 +15,7 @@ public class To_do_listDAO extends DAO {
 	}
 	
 	// 일단 void 하고 나중에 수정
-	public To_do_list insertToDo(To_do_list to_to_list) {
+	public To_do_list insertToDo(To_do_list to_do_list) {
 		connect() ;
 		int currId = 0 ;
 		try {
@@ -30,9 +30,9 @@ public class To_do_listDAO extends DAO {
 				currId = rs.getInt("value") ;
 			}
 			currId++ ;
-			psmt = conn.prepareStatement("insert into comments values(?,?)") ;
+			psmt = conn.prepareStatement("insert into to_do_list values(?,?)") ;
 			psmt.setInt(1, currId) ;
-			psmt.setString(2, to_to_list.getDotext()) ;
+			psmt.setString(2, to_do_list.getDotext()) ;
 			int r = psmt.executeUpdate() ;
 			System.out.println(r + "건 입력") ;
 			
@@ -42,8 +42,8 @@ public class To_do_listDAO extends DAO {
 			System.out.println("Num " + r + "건 변경") ;
 			
 			conn.commit() ;
-			to_to_list.setId(String.valueOf(currId)) ;
-			return to_to_list ;
+			to_do_list.setId(String.valueOf(currId)) ;
+			return to_do_list ;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,6 +56,23 @@ public class To_do_listDAO extends DAO {
 		} finally {
 			disconnect() ;
 		}
+	}
+	
+	public String deleteToDo (String id) {
+		connect() ;
+		try {
+			psmt = conn.prepareStatement("delete from to_do_list where id=?") ;
+			psmt.setString(1, id) ;
+			int r = psmt.executeUpdate() ;
+			System.out.println(r + "건 삭제") ;
+			return id ;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null ;
+		} finally {
+			disconnect() ;
+		}
+		
 	}
 
 }

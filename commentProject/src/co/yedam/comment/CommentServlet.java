@@ -37,7 +37,6 @@ public class CommentServlet extends HttpServlet {
 		} else if (cmd.equals("list")) {
 			System.out.println("<h1>리스트페이지입니다</h1>") ;
 			List<Comment> list = dao.getCommenList() ;
-			 
 			out.println(gson.toJson(list)) ;		 	// helloWorld에서 했던 방식은 직접 JSON형태로 바꿔주는 과정을 거쳤었는데 
 													 	// GSON을 쓰면 GSON이 그걸 알아서 처리해줌
 		} else if (cmd.equals("add")) {

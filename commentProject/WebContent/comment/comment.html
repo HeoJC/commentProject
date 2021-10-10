@@ -26,7 +26,6 @@
 			xhtp.send();
 		}
 
-		// 한건 조회
 		function makeCommentView(comment) {
 			let div = document.createElement("div");
 			div.setAttribute("id", comment.id);
@@ -73,10 +72,7 @@
 
 		function viewUpdateForm(commentId) {
 			let commentDiv = document.getElementById(commentId);
-			console.log(commentDiv.dataset.id, commentDiv.dataset.name, commentDiv.dataset.content);
-			console.log(commentDiv.comment.id, commentDiv.comment.name, commentDiv.comment.content);
 			let updateFormDiv = document.getElementById("commentUpdate");
-			let commentList = document.getElementById("commentUpdate");
 			commentDiv.after(updateFormDiv); // 선택한 요소의 값 - 수정화면의 폼에 보여줌
 			
 			document.updateForm.id.value = commentDiv.comment.id;
@@ -110,6 +106,7 @@
 			xhtp.send("name=" + name + "&content=" + content + "&cmd=mod" + "&id=" + id);
 		}
 		
+		//취소버튼
 		function cancelComment() {
 			document.getElementById("commentUpdate").style.display = "none";
 			document.getElementById("commentAdd").style.display = "block";
@@ -118,14 +115,15 @@
 		//삭제버튼
 		function confirmDeletion (deleteId) {
 			let xhtp = new XMLHttpRequest() ;
-			xhtp.open("get" , "../CommentServlet?cmd=del&id=" + deleteId) ;
-			xhtp.send() ;
+
 			xhtp.onload = function () {
 				let data = JSON.parse(xhtp.responseText) ;
 				if (data.retCode == "fail") {
 					window.alert("처리중 에러가 발생했습니다") ;
 					return ;
 				}
+				xhtp.open("get" , "../CommentServlet?cmd=del&id=" + deleteId) ;
+				xhtp.send() ;
 				// 화면삭제
 				document.getElementById(deleteId).remove() ;
 			}
