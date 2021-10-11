@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button>ok</button>
+	<script>
+		const father = {
+				firstName : "killdong" ,
+				lastName : "Hong" ,
+				age : 20
+		} ;
+		const mother = {
+				firstName : "heeyoung" ,
+				lastName : "Hwang" ,
+				age : 27
+		} ;
+		mother.gender = "Female" ;
+		
+		function Person(first , last , age ,eye) {
+			this.firstName = first ;
+			this.lastName = last ;
+			this.age = age ;
+			this.eyeColor = eye ;
+			this.name = function() {
+				return this.firstName + " , " + this.lastName
+			}
+		}
+		Person.prototype.gender = "male" ;
+		
+		const son = new Person("민석" , "홍" , 3 , "검정") ;
+		const daughter = new Person("민주" , "홍" , 3 , "검정") ;
+		daughter.gender = "Female" ;
+		
+		console.log(father.age) ;
+		console.log(father.age , son.gender , son.name()) ;
+		console.log(daughter.age , daughter.gender , daughter.name()) ;
+		
+		class Persons {
+			constructor(firstName , lastName , age) {
+				this.firstName = firstName ;
+				this.lastName = lastName ;
+				this.age = age ;
+			}
+			showName() {
+				return this.firstName + " , " + this.lastName ;
+			}
+		}
+		let lee = new Persons("순신" , "이" , 30) ;
+		console.log(lee.showName()) ;
+		
+	</script>
+</body>
+</html>

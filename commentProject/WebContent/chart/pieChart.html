@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+    	var result = [
+          ['Task', 'Hours per Day']
+        ] ;
+    	
+    	var xhtp = new XMLHttpRequest() ;
+    	xhtp.onload = function() {
+    		var data = JSON.parse(xhtp.responseText) ;
+    		console.log(data) ;
+    		for (d of data) {
+    			result.push(d) ; // push = result에 마지막에 붙여넣기
+    		}
+    		console.log(result) ;
+
+    		// 26~34를 onload 밖에 밑에 두면 먼저 실행되기 때문에 function 안에다가 넣어줌
+            var data = google.visualization.arrayToDataTable(result);
+
+            var options = {
+              title: '부서별 사원수'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+    	}
+    	xhtp.open("get" , "../DeptByEmpServ") ;
+    	xhtp.send() ;
+    	
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
