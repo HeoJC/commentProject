@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/basic.html</title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        // jquery 는 $()안에 선택자가 들어감
+        $(document).ready(function() { // document 가 준비되면 function을 실행시킴
+            let p_html = $("div > p").html() ; // .html()은 값을 넣어주면 해당값을 넣어주고 공란으로 두면 해당값을 불러옴
+            console.log(p_html) ;
+
+            
+            let p = $("<p class='first' style='color: blue' />hello, world</p>") ; // $ = jquery object / let p = document.createElement("P") ; 
+            // 태그를 직접 다 써도 됨
+            // $(p).html("hello, world") ; // p.innerHTML = "hello, world" ;
+            $(p).css("background-color" , "skyblue") ;
+            console.log(p) ; // 출력하면 <p>hello, world</p> 가 아니라 jQuery.fn.init [p] 이렇게 출력되는데 jquery object 라서 그렇게 출력됨
+            
+            $("body").append(p) ;
+        
+        }) ;
+    
+        
+
+    </script>
+</head>
+<body>
+
+    <div>
+        <p>hello, world</p>
+    </div>
+
+</body>
+</html>

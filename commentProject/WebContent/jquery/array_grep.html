@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.grep demo</title>
+  <style>
+  div {
+    color: blue;
+  }
+  p {
+    color: green;
+    margin: 0;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+ 
+<div></div>
+<p></p>
+<span></span>
+ 
+<div>
+    <p>내용1</p>
+    <p>내용2</p>
+    <p>내용3</p>
+    <p>내용4</p>
+    <p>내용5</p>
+</div>
+
+<script>
+    let idx = $("div>p").index($("p:contains('내용3')")) ;
+    console.log(idx) ;
+
+    $("div>p").eq(idx).css("background-color" , "skyblue") ;
+
+    // var arr = [ 1, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1 ]; // 원본배열
+    // $( "div" ).text( arr.join( ", " ) );
+    
+    // arr = jQuery.grep(arr, function( n, i ) { // 변환배열1
+    // return ( n !== 5 && i > 4 );
+    // });
+    // $( "p" ).text( arr.join( ", " ) );
+    
+    // arr = jQuery.grep(arr, function( a ) { // 변환배열2
+    // return a !== 9;
+    // });
+    
+    // $( "span" ).text( arr.join( ", " ) );
+
+    // // 책 198쪽
+    // //  inArray = 배열안에서 찾는것의 인덱스를 반환 (4,arr) = 변환배열2 에서 4의 인덱스값을 반환
+    // let findVal = $.inArray(4,arr) ;
+    // console.log(findVal) ;
+
+    // findVal = $(arr).index(7) ; // 변환배열2에서 7의 인덱스를 반환
+    // console.log(findVal) ;
+</script>
+ 
+</body>
+</html>

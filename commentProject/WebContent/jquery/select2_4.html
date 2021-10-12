@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/select2_4</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        $(function() {
+            // 선택한 요소의 무리 중 첫번째, li를 선택하면 두 무리가 잡힘
+            $("li:first-of-type")
+            .css({"background-color" : "skyblue"})
+
+            // 선택한 요소의 무리 중 마지막
+            $("li:last-of-type")
+            .css({"background-color" : "greenyellow"})
+        }) ;
+    </script>
+    <h1>탐색 선택자</h1>
+    <ul>
+        <li>내용1-1</li>
+        <li>내용1-2</li>
+        <li>내용1-3</li>
+    </ul>
+    <ul>
+        <li>내용2-1</li>
+        <li>내용2-2</li>
+        <li>내용2-3</li>
+    </ul>
+</body>
+</html>

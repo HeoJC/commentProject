@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/select2_6</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        $(function() {
+            // 1초과 3이하의 요소 
+            $("#menu1 li").slice(1,3)
+            .css({"background-color" : "skyblue"})
+
+            // 선택 요소의 하나뿐인 자식 요소면 선택
+            $("li:only-child")
+            .css({"background-color" : "greenyellow"})
+        }) ;
+    </script>
+    <h1>탐색 선택자</h1>
+    <ul id="menu1">
+        <li>내용1-1</li>
+        <li>내용1-2</li>
+        <li>내용1-3</li>
+        <li>내용1-4</li>
+    </ul>
+    <ul id="menu2">
+        <li>내용2-1</li>
+    </ul>
+</body>
+</html>

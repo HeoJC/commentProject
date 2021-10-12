@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/select_fnc.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("button").click(findFnc) }) ;
+
+        function findFnc () {
+            let trVal = $("tbody>tr") ;
+            $(trVal).find("td:nth-child(1)").css("background-color" , "greenyellow") ;
+            $(trVal).find("input:checked").parent().css("background-color" , "skyblue") ;
+
+            // javaScript
+            // trVal = document.querySelectorAll("tbody>tr>td:nth-child(1)") ;
+            // for(let tr of trVal) {
+            //     tr.style.backgroundColor = "greenyellow" ;
+            // }
+
+            // 두개 다 결과는 같음
+            // $("tbody>tr>td:contains(3.5)").css("color" , "red") ;
+            $(trVal).find("td:contains(3.5)").css("color" , "red") ;
+
+            // <div><td>가나다</td></div> 일 때 div의 children() 하면 td태그를 선택하지만 contents() 하면 <td>가나다</td> 를 선택함
+            // <div><td class="가나">가나다</td></div> 일 때 nodeValue 하면 
+            // nodeType 1 = element node (td), nodeType 2 = attribute node (class), nodeType 3 = text node (가나다)를 의미함
+            console.log($(trVal).find("input:checked").parent().next().contents()) ;
+        }
+
+        // button click function에서 뺐음
+        function filterFnc () {
+                let checkVal = $("tbody>tr>td>input") 
+                console.log(checkVal)
+
+                $(checkVal).filter(":checked").parent().parent().css("background-color" , "skyblue") ;
+                $(checkVal).filter(function (idx , ele) {
+                    if(idx % 2 == 0) {
+                        return true ;
+                    }
+                }).parentsUntil("tbody").css("color" , "blue") ;
+
+                checkVal = $("tbody>tr>td") ;
+                $(checkVal).filter(":has(input)").css("border" , "2px solid red") ; // has 뒤에는 태그가 옴
+            }
+
+    </script>
+</head>
+<body>
+    <div id="show"></div>    
+    <button>클릭</button>
+    <script>
+        fetch("coffee.json")
+        .then(x => x.json())
+        .then(data => createTable(data)) ;
+
+        function createTable(data) {
+            console.log(data) ;
+            let table = document.createElement("table") ;
+            table.setAttribute("border" , "1") ;
+            let tbody = document.createElement("tbody") ;
+            table.appendChild(tbody) ;
+
+            // tbody => tr생성
+            // data.forEach(function (obj , idx) {}랑 같음. 아래는 arrow function으로 표현한거)
+            data.forEach((obj , idx) => {
+                let tr = document.createElement("tr") ;
+                let checkTd = document.createElement("td") ;
+                if (idx == 3)
+                    checkTd.innerHTML = "<input type='checkbox' checked>" ;
+                else
+                    checkTd.innerHTML = "<input type='checkbox'>" ;
+                tr.appendChild(checkTd) ;
+                for (let field in obj) {
+                    let td = document.createElement("td") ;
+                    td.innerHTML = obj[field] ;
+                    tr.appendChild(td) ;
+                }
+                tbody.appendChild(tr) ;
+            }) ;
+            document.getElementById("show").appendChild(table) ;
+        }
+    </script>
+</body>
+</html>

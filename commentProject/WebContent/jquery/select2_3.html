@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/select2_3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        $(function() {
+            // eq는 지정한 인덱스의 요소
+            $("#menu li").eq(2)
+            .css({"background-color" : "skyblue"})
+
+            // lt는 지정한 인덱스보다 작은 인덱스의 요소
+            $("#menu li:lt(2)")
+            .css({"background-color" : "greenyellow"})
+
+            // gt는 지정한 인덱스보다 큰 인덱스의 요소
+            $("#menu li:gt(2)")
+            .css({"background-color" : "lime"})
+        }) ;
+    </script>
+    <h1>탐색 선택자</h1>
+    <ul id="menu">
+        <li>내용1</li>
+        <li>내용2</li>
+        <li>내용3</li>
+        <li>내용4</li>
+        <li>내용5</li>
+    </ul>
+</body>
+</html>

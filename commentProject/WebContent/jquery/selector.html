@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/selector.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(yourFnc) ;
+
+        function yourFnc() {
+            let table = $("<table />").append(
+                            $("<thead />").append(
+                                $("<tr />").append(
+                                $("<th>나이</th>") ,
+                                $("<th>이름</th>") ,
+                                $("<th>기능</th>")
+                                ) 
+                            ) ,
+                            $("<tbody />" ).append(
+                                $("<tr />").append(
+                                    $("<td>홍길동</td>") ,
+                                    $("<td>20</td>") ,
+                                    $("<td><button>삭제</button></td>")
+                                ) ,
+                                $("<tr />").append(
+                                    $("<td>김민주</td>") ,
+                                    $("<td>21</td>") ,
+                                    $("<td><button>삭제</button></td>")
+                                )
+                            )
+            ) ;
+            $(table).attr("border" , "1")
+                    .attr("id" , "tb1") ;                    
+            $("#show").append(table) ;
+
+            // thead를 안붙이면 thead의 첫번째 tr , tbody의 첫번재 tr 전부 찾아서 2줄이 파란색으로 나옴.
+            $("thead>tr:nth-child(1)").css("background-color" , "skyblue") ;
+
+            // ----- 요소 찾아서 설정추가 -----
+
+            // childnode썼었는데 jquery에서는 children
+            // eq(1) = 두번째 자식
+            // children 앞에 eq(0)을 안써서 인덱스를 지정안해주면 몇번째 tr을 잡는게 아닌 tr전체를 잡아서 
+            // 전체 tr의 자식 td를 td(1) td(2) td(1) td(2) 이 아닌 td(1) td(2) td(3) td(4) 이렇게 인식함.
+            $("tbody>tr").eq(0).children().eq(1).html(30) ;
+            $("tr").eq(2).children().eq(0).attr("id" , "second") ;
+            // prev() = 부모 객체 아니고 이전 형제 객체 , first() = eq(0)
+            $("#second").parent().prev().children().first().attr("id" , "first") ;
+            // next() = prev() 반대
+            $("#first").next().css("color" , "red") ;
+
+            // ----- 이벤트 -----
+            // 모든 button요소를 찾음 , on(행위 , 이벤트)
+            $("button").on("click" , function() {
+                console.log(this) ; // 여기서 this는 button태그
+                $(this).parent().parent().remove() ;
+            })
+        }
+
+        function callFnc() {
+            let ul = $("<ul />").append(
+                     $("<li>apple</li>") , 
+                     $("<li>mango</li>")
+            ) ;
+            $(ul).css("color" , "red")
+                 .css("background-color" , "yellow")
+                 .attr("id" , "fruit")
+                 .attr("class" , "first") ;
+            $("#show").append(ul) ;
+        }
+
+    </script>
+</head>
+<body>
+
+    <div id="show">
+    </div>
+
+</body>
+</html>

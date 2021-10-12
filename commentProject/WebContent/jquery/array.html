@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/array.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    
+    <div id="show"></div>
+
+    <script>
+        function Member(id , name , phone) {
+            this.id = id ;
+            this.name = name ;
+            this.phone = phone ;
+        }
+        const members = [new Member("user1" , "홍길동" , "1234")] ;
+        members.push(new Member("user2" , "김민주" , "4567")) ;
+        members.push(new Member("user3" , "설민석" , "3456")) ;
+
+        let table = document.createElement("table") ;
+        table.setAttribute("border" , "1") ;
+        let tbody = document.createElement("tbody") ;
+        table.appendChild(tbody) ;
+        document.getElementById("show").appendChild(table) ;
+
+        members.forEach(function (obj , ind) {
+            let tr = document.createElement("tr") ;
+            for(let field in obj) {
+                let td = document.createElement("td") ;
+                td.innerHTML = obj[field] ;
+                tr.appendChild(td) ;
+            }
+            tbody.appendChild(tr) ;
+        });
+
+        // jquery : (1) 
+        // $("tr").each(function(ind , obj) { // $("tr").each = tr 각각에 대해 function을 실행
+        //     console.log($(obj)) ;
+        //     $(obj).click(function () {
+        //         window.alert($(this).children().eq(1).text()) ;
+        //     }) ;
+        //     $(this).mouseover(function () { // $(this) = tr 태그
+        //         $(this).css("background-color" , "skyblue") ;
+        //     }) ;
+        //     $(this).on("mouseout" , function () {
+        //         $(this).css("background-color" , "") ;
+        //     }) ;
+        // }) ;
+
+        // jquery : (2) -> 라이브 이벤트 등록
+        $(document).on("click" , "tr" , function (event) {
+            // 이름만 뜨게 하는거. 누른곳 뜨게하고싶으면 $(event.target).html()
+            window.alert($(event.target).parent().children().eq(1).html()) ;
+        }) ;
+
+        $(document).on("mouseover" , "tr" , function (event) {
+            $(event.target).parent().css("background-color" , "skyblue") ;
+        }) ;
+
+        $(document).on("mouseout" , "tr" , function (event) {
+            $(event.target).parent().css("background-color" , "") ;
+        }) ;
+
+        // $(memners).each() ;
+        $.each(members , function (idx , obj) {
+            let $tr = $("<tr />").append(
+                        $("<td />").html(obj.id) ,
+                        $("<td />").html(obj.name) ,
+                        $("<td />").html(obj.phone)
+                        ) ;
+                        // $("table").append($tr) ; // 이렇게 Jquery로 하거나 javaScript로 하고싶으면 
+                        table.appendChild($tr.get(0)) ; // Jquery object를 javaScript object로 바꿔주는게 .get()
+        }) ;
+
+    </script>
+
+</body>
+</html>
