@@ -122,11 +122,11 @@
 					window.alert("처리중 에러가 발생했습니다") ;
 					return ;
 				}
-				xhtp.open("get" , "../CommentServlet?cmd=del&id=" + deleteId) ;
-				xhtp.send() ;
-				// 화면삭제
-				document.getElementById(deleteId).remove() ;
 			}
+			xhtp.open("get" , "../CommentServlet?cmd=del&id=" + deleteId) ;
+			xhtp.send() ;
+			// 화면삭제
+			document.getElementById(deleteId).remove() ;
 		}
 	</script>
 </head>
