@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/mod_dom.html</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <style>
+        #show {
+            border: 3px dotted limegreen;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="show"></div>
+    <script>
+        // before , after
+        $("#show").after($("<p>Hello, World</p>")) ;
+        $("<p>insertBefore</p>").insertBefore($("#show")) ;
+        // append , prepend
+        $("#show").append($("<p>inner</p>")) ;
+        $("#show").append($("<p>inner2</p>")) ;
+        $("#show").prepend($("<p>inner_prepend</p>")) ;
+        $("<p>prependTO</p>").prependTo($("#show")) ;
+        $("<p>appendTO</p>").appendTo($("#show")) ;
+
+        let cloned = $("#show").clone() ;
+        console.log(cloned) ;
+
+        $("#show+p").after(cloned) ; // #show+p = #show 다음의 p태그
+        // $(cloned).empty() ; // .empty() = 하위 요소들을 다 지움 , .remove() 는 해당요소까지 지움
+        $(cloned).find(":contains(prependTO)").replaceWith("<div>prependTO</div>") ; 
+        $("<div>replaceAll</div>").replaceAll($(cloned).find("p:contains(inner2)")) ;
+
+        $(cloned).find("p").wrapInner("<div />") ;
+        // .wrap("<div />") 하면 p를 div 안에 감싸고
+        // .wrapInner("<div />") 하면 div를 p안에 넣음
+        // .wrapAll("<div />") 하면 여러 p를 하나의div 안에 넣음
+    </script>
+</body>
+</html>

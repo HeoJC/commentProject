@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery_ajax/load.html</title>
+    <script src="../jquery/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#show").load("hello.txt" , function (result) { // abc 넣어서 찍어보면 뭘 불러오는지 알 수 있음, 여기서는 a는 데이터값 , b는 연결 성공여부 , c는 request 자료
+                console.log(result) ;                        // a사용할거면 bc는 안써주면됨 여기서는 a를 result라 하고 씀
+            }) ;
+
+            $.get("get.json" , function (result) {
+                let ul = $("<ul />") ;
+                for (let row of result) {
+                    $(ul).append($("<li />").html(row.id + " " + row.first_name + " " + row.last_name))
+                }
+                $("#display").append(ul) ;
+            }) ;
+        }) ;
+    </script>
+</head>
+<body>
+    <div id="show"></div>
+    <div id="display"></div>
+</body>
+</html>

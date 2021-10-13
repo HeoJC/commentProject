@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery_ajax/ajax.html</title>
+    <script src="../jquery/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "get.json" ,
+                type: "get" , // 요청방식 get/post , 안적으면 get 방식으로 함
+                // data: "id=user" , // 서버로 보낼 데이터 ex) "id=user&pass=1234"
+                // dataType: "json" , // html, text, json, xml ... 데이터유형 지정
+                success: showData , // 성공했을 때 실행할 function
+                error: function (reject) { // error났을 때 실행할 function
+                    console.log("에러발생 : " + reject.statusText) ;
+                }
+            }) ;
+        }) ;
+
+        function showData (data) { // 성공했을 때 실행되는 function
+            let table , tbody , tr , td ;
+            let thead = "<thead><tr><th>ID</th><th>FName</th><th>LName</th><th>Email</th><th>Gender</th></tr></thead>" ;
+            table = $("<table id='tbl'/>").attr("border" , "1") ; // 속성을 .attr로 해도되고 <table id="tbl"/> 처럼 table선언에다가 해도 됨
+            tbody = $("<tbody />") ;
+            $(table).append(tbody) ; // data영역
+            $(table).append(thead) ; // head영역
+
+            for(let row of data) {
+                tr = $("<tr />").append(
+                    $("<td />").html(row.id) ,
+                    $("<td />").html(row.first_name) ,
+                    $("<td />").html(row.last_name) ,
+                    $("<td />").html(row.email) ,
+                    $("<td />").html(row.gender)
+                ) ;
+                $(tbody).append(tr) ;
+            }
+            $("#show").append(table) ;
+        } ;
+    </script>
+</head>
+<body>
+    <form action="" style="border: 1px dotted limegreen; padding: 5px;" onsubmit="submitFrm(event)">
+        ID : <input type="number" name="userId" id="userId">
+        FName : <input type="text" name="fname" id="fname"><br>
+        LName : <input type="text" name="lname" id="lname">
+        Email : <input type="email" name="email" id="email"><br>
+        Gender : <input type="radio" name="gender" id="male" value="Male" checked>Male
+                 <input type="radio" name="gender" id="female" value="Female">Female<br>
+        <input type="submit" value="Save">
+        <input type="reset" value="Reset">
+    </form>
+    <hr>
+    <div id="show"></div>
+
+    <script>
+        function submitFrm(e) {
+            e.preventDefault() ;
+            let userId = $("#userId").val() ; // id로 input찾아서 입력된 값을 변수에 저장
+            let fname = $("#fname").val() ;
+            let lname = $("#lname").val() ;
+            let email = $("#email").val() ;
+            let gender = $('input[name="gender"]:checked').val() ;
+
+            // ajax 호출
+            $.ajax({
+                url: "입력서블릿" , // 없는데 임시로 써놓은거. 그래서 구현을 성공이 아니라 실패에 써둠
+                type: "post" ,
+                data: {id: userId ,
+                       fname: fname ,
+                       lastName: lname ,
+                       email: email ,
+                       gender: gender
+                } ,
+                dataType: "json" ,
+                success: function(result) {
+                    // 화면에 결과반영
+                } ,
+                error: function (reject) { // result , reject 변수명은 같아도 상관없는데 그냥 구분지으려고 다르게 함
+                    // 경고 메세지
+                    let tr = $("<tr />").append( // input에 있던 값 -> 변수 -> tr, td로 표에 붙여넣기
+                        $("<td />").html(userId) ,
+                        $("<td />").html(fname) ,
+                        $("<td />").html(lname) ,
+                        $("<td />").html(email) ,
+                        $("<td />").html(gender) ,
+                    ) ;
+                    $("#tbl>tbody").append(tr) ;
+                }
+            }) ;
+        } ;
+    </script>
+</body>
+</html>
