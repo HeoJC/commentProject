@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cookie/storage.html</title>
+</head>
+<body>
+	<button id="set">SetStorage</button>
+	<button id="clear">Clear</button>
+	<button id="check">Check</button>
+	
+	<script>
+		document.getElementById("set").onclick = function () {
+			sessionStorage.setItem("username" , "hongkildong") ;
+			sessionStorage.setItem("userid" , "hong") ;
+		}
+		
+		document.getElementById("clear").onclick = function () {
+ 			// sessionStorage.setItem("username" , null) ;
+			// sessionStorage.setItem("userid" , null) ; 
+			sessionStorage.removeItem("username") ;
+			sessionStorage.removeItem("userid") ;
+		}
+		
+		document.getElementById("check").onclick = function () {
+			let userName = sessionStorage.getItem("username") ;
+			let userId = sessionStorage.getItem("userid") ;
+			console.log(`name : ${userName} , id : ${userId}`) ; // 작은따옴표 아님. 1왼쪽에 있는거, 작은따옴표로 묶으면 문자 그대로 출력됨
+		}
+	</script>
+</body>
+</html>
