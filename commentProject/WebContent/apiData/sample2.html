@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>apiData/sample2.html</title>
+    <script src="../jquery/jquery-3.6.0.min.js"></script>
+    <style>
+        #city>div {
+            display: inline-block;
+            margin: 2px;
+        }
+
+        #city>div.active>button {
+            background-color: grey;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="city"></div>
+    <div id="show"></div>
+
+    <script>
+        let categories = [{
+                code: "서울",
+                city: "서울특별시"
+            },
+            {
+                code: "대전",
+                city: "대전광역시"
+            },
+            {
+                code: "대구",
+                city: "대구광역시"
+            },
+            {
+                code: "부산",
+                city: "부산광역시"
+            }
+        ];
+
+        for (let category of categories) {
+            let div = $("<div />").addClass("city");
+            $(div).html('<button onclick="chooseCity(\'' + category.city + '\')" >' + category.code + '</button>');
+            $("#city").append(div);
+        }
+
+        function chooseCity(cityName) {
+            $("#city>.city").removeClass("active") ;
+
+            $(event.target).parent().addClass("active") ;
+
+            // cityName : 서울특별시
+            let selectedCities = $.grep(cities, function (obj) {
+                return obj.sido === cityName;
+            });
+
+            $("#show").empty(); // 기존데이터를 지우고
+
+            let table, tbody, tr, td;
+            table = $("<table />").attr("border", "1");
+            $(table).html(
+                "<thead><tr><th>id</th><th>centerName</th><th>sido</th><th>facilityName</th><th>link</th></tr></thead>"
+                );
+
+            // td영역
+            $.each(selectedCities, function (idx, obj) {
+                $(table).append(makeDiv(obj));
+            });
+
+            $("#show").append(table); // 화면에 display
+        }
+
+        function makeDiv(row) {
+            let tr = $("<tr />").append(
+                $("<td />").html(row.id),
+                $("<td />").html(row.centerName),
+                $("<td />").html(row.sido),
+                $("<td />").html(row.facilityName),
+                $("<td />").html('<a href="daum_map.jsp?x=' + row.lat + '&y=' + row.lng + '" target="_blank">지도</a>')
+            );
+            return tr;
+        }
+
+        // api데이터 -> cities 배열에 저장
+        let cities = [];
+        $.ajax({
+            url: "open_api.json",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                let data = result.data;
+                for (let datum of data) {
+                    cities.push(datum);
+                }
+                console.log(cities);
+                chooseCity("서울특별시");
+            },
+            error: function (reject) {
+                console.log(reject);
+            }
+        });
+    </script>
+</body>
+
+</html>
