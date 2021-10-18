@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>email/emailSend.html</title>
+<script src="../jquery/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<form action="" id="mailFrm" onsubmit="return mailSubmit()">
+		<div>
+			<label for="title">제목:</label>
+			<input type="text" name="title" value="테스트">
+		</div>	
+		<div>
+			<label for="content">내용:</label>
+			<textarea name="content" cols="30" rows="10"></textarea>
+		</div>
+		<div>
+			<input type="submit" value="메일보내기">
+			<input type="reset" value="다시작성">
+		</div>
+	</form>
+	
+	<script>
+		function mailSubmit() {
+			//event.preventDefault() ;
+			
+			$.ajax({
+				url : "../MailSendSerlvet" ,
+				data : $("#mailFrm").serialize() , // 하나하나 지정안해줘도 해당 form의 데이터들을 한꺼번에 불러옴
+				dataType : "json" ,
+				success : function(result) {
+					console.log(result) ;
+				} ,
+				error : function(reject) {
+					console.log(reject) ;
+				}
+			}) ;
+			
+			return false ;
+		} ;
+	</script>
+</body>
+</html>
